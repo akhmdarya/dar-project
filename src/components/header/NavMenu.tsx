@@ -1,11 +1,19 @@
-import { AppBar, Button, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography, useMediaQuery, useTheme } from '@material-ui/core';
+import { Button, makeStyles, MenuItem, Toolbar, useMediaQuery, useTheme } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton/IconButton';
+import Menu from '@material-ui/core/Menu/Menu';
 import React from 'react';
+import ListRoundedIcon from '@material-ui/icons/ListRounded';
+import styles from './Nav.module.scss';
 import { withRouter } from 'react-router-dom';
-import './Header.scss';
+
+
+
+
+  
 const useStyles = makeStyles((theme) => ({
     navbar : {
         // top:"60px",
-      backgroundColor:"rgb(250, 242, 12)",
+      backgroundColor:"rgb(127, 255, 212)",
 
         justifyContent: "space-around",
     },
@@ -20,13 +28,18 @@ const useStyles = makeStyles((theme) => ({
        }
 }))
 
-const NavMenu: React.FC=()=>{
+ 
+
+const  NavMenu : React.FC= () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+
     const classes = useStyles();
     const menuItems = [  //for mobile menu
         {
             id: 1,
           menuTitle: "Home",
-          pageURL: "./././src/App.tsx"
+          pageURL: "../../src/App.tsx"
         },
         {
             id:2,
@@ -40,10 +53,19 @@ const NavMenu: React.FC=()=>{
         }
       ];
     return(
-        <Toolbar className={classes.navbar}>
+
+      isMobile ? (
+      
+       <div  className={styles.container} >
+        
+       </div>
+        
+      ):(
+       
+         <Toolbar className={classes.navbar}>
             <div>
         {menuItems.map(menuItem => {
-            const { menuTitle, pageURL } = menuItem;
+            const { menuTitle } = menuItem;
             return ( 
                 <Button key={menuItem.id}
                    variant="contained" color="primary" className={classes.buttons}>
@@ -54,32 +76,8 @@ const NavMenu: React.FC=()=>{
           })}
           </div>
           </Toolbar>
-             
-                // <Toolbar className={classes.navbar}>
-                //         <div >
-                //       <Button
-                //         variant="contained" color="primary" className={classes.buttons}
-                       
-                //       >
-                //         HOME
-                //       </Button>
-                //       <Button
-                //         variant="contained" color="primary" className={classes.buttons}
-                       
-                //       >
-                //         What Is Gdpr
-                //       </Button>
-                //       <Button
-                //         variant="contained" color="primary" className={classes.buttons}
-                       
-                //       >
-                //        Products
-                //       </Button>
-                //     </div>
-                  
-                // </Toolbar>
-            
-           
+      )
+          
           );
         };
 
