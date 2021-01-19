@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import  NavMenu from './components/header/NavMenu'
-import { AppBar} from '@material-ui/core';
+import { AppBar, Container, CssBaseline, Typography} from '@material-ui/core';
 // import  Button from './components/button/Buttons'
 
 import {makeStyles} from '@material-ui/core/styles';
@@ -9,6 +9,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Header from './components/header/Header';
 import Home from './Home';
+import Likes from './components/Likes';
+import BasicTextFields from './components/urlField/TextField';
 
 const useStyles = makeStyles((theme) => ({
   app : {
@@ -23,7 +25,12 @@ const useStyles = makeStyles((theme) => ({
   flexGrow : 1,
   flexWrap: "wrap",
   alignItems:"center"
- },
+   
+ }, main: {
+  backgroundColor: '#cfe8fc', height: '100vh',
+  position: "relative",
+  paddingTop:"150px",
+}
 
 }))
 const  App : React.FC= () => {
@@ -52,10 +59,32 @@ const  App : React.FC= () => {
         />
       </Switch>
       </BrowserRouter>
-    
+        
      </div> 
+ 
      </AppBar>
+     <React.Fragment>
+      <CssBaseline />
+      
+      <Container className={classes.main}  component="div" maxWidth="lg">
+  
+        <div>  
+        
+<Likes />
+
+      </div>
+      <BasicTextFields value= ""/>
+      
+      </Container>
+    </React.Fragment>
+
+   
+        
+
+      
+    
     </div>
+ 
   );
 }
 
