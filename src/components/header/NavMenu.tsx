@@ -1,16 +1,18 @@
-import { Button, makeStyles, MenuItem, Toolbar, useMediaQuery, useTheme } from '@material-ui/core';
+import { Button, createStyles, makeStyles, MenuItem, Popover, Theme, Toolbar, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import Menu from '@material-ui/core/Menu/Menu';
 import React from 'react';
 import ListRoundedIcon from '@material-ui/icons/ListRounded';
-import styles from './Nav.module.scss';
+// import styles from './Nav.module.scss';
 import { withRouter } from 'react-router-dom';
 
+import MenuIcon from "@material-ui/icons/Menu";
 
 
 
   
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: Theme) => 
+createStyles({
     navbar : {
         // top:"60px",
       backgroundColor:"rgb(127, 255, 212)",
@@ -26,15 +28,35 @@ const useStyles = makeStyles((theme) => ({
        root:{
         justifyContent: "space-around",
        }
-}))
+}));
 
  
 
-const  NavMenu : React.FC= () => {
+const NavMenu = () => {
+  // const { history } = props;
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
+  const id = open ? 'simple-popover' : undefined;
+  const handleMenu =  (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-    const classes = useStyles();
+  const handleMenuClick = (pageURL: any) => {
+    // history.push(pageURL);
+    setAnchorEl(null);
+  };
+
+  const handleButtonClick = (pageURL: any) => {
+    // history.push(pageURL);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
     const menuItems = [  //for mobile menu
         {
             id: 1,
@@ -53,22 +75,55 @@ const  NavMenu : React.FC= () => {
         }
       ];
     return(
-
       isMobile ? (
-      
-       <div  className={styles.container} >
         
-       </div>
+ 
+        <div><IconButton aria-describedby={id} edge="start" onClick={handleMenu}
+        >
+          <ListRoundedIcon />
+        </IconButton>
+
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+             onClose={handleClose}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+           
+            
+           
+          >
+            {menuItems.map(menuItem => {
+              const { menuTitle, pageURL } = menuItem;
+              return (
+                <MenuItem key={menuItem.id} onClick={() => handleMenuClick(pageURL)}>
+                  {menuTitle}
+                </MenuItem>
+              );
+            })}
+           
+          </Popover></div>
+         
+        
         
       ):(
        
          <Toolbar className={classes.navbar}>
             <div>
         {menuItems.map(menuItem => {
-            const { menuTitle } = menuItem;
+            const { menuTitle,pageURL } = menuItem;
             return ( 
                 <Button key={menuItem.id}
-                   variant="contained" color="primary" className={classes.buttons}>
+                   variant="contained" color="primary" className={classes.buttons}
+                   onClick={() => handleMenuClick(pageURL)}>
                 {menuTitle}
                 </Button>
              
@@ -77,7 +132,7 @@ const  NavMenu : React.FC= () => {
           </div>
           </Toolbar>
       )
-          
+      
           );
         };
 

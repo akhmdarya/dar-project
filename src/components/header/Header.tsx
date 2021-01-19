@@ -30,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
    },
    icon:{
   
-      ['@media (min-width:780px)']: { // eslint-disable-line no-useless-computed-key
-        display: 'none'
-      }
+    //   ['@media (min-width:600px)']: { // eslint-disable-line no-useless-computed-key
+    //     display: 'none'
+    //   }
   
    },
   
@@ -50,7 +50,7 @@ const Header: React.FC=()=>{
           <Toolbar className={classes.root}>  
             <IconButton edge="start" className={classes.menuButton}
             color="inherit" aria-label="menu" >
-              <ListRoundedIcon className={classes.icon}/>
+             
                 <Avatar  >
                 <img src = {logo} className="App-logo" alt="Logo"/>
                 </Avatar>

@@ -2,12 +2,13 @@ import React from 'react';
 import './App.scss';
 import  NavMenu from './components/header/NavMenu'
 import { AppBar} from '@material-ui/core';
-
+// import  Button from './components/button/Buttons'
 
 import {makeStyles} from '@material-ui/core/styles';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Header from './components/header/Header';
+import Home from './Home';
 
 const useStyles = makeStyles((theme) => ({
   app : {
@@ -31,7 +32,7 @@ const  App : React.FC= () => {
     <div className="App">
      
       <AppBar position="fixed" className={classes.app}>
- 
+   
           <Header/> 
 
         
@@ -40,8 +41,8 @@ const  App : React.FC= () => {
       <NavMenu />
       <BrowserRouter>
       <Switch>
-        <Route exact from="/"  
-        // render={props => <Home {...props} />} 
+        <Route exact path="/"  
+        render={props => <Home {...props} />} 
         />
         <Route exact path="/whatIsGdpr" 
         // render={props => <whatIsGdpr {...props} />} 
