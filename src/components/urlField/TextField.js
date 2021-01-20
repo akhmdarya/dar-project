@@ -26,7 +26,7 @@ class BasicTextFields extends React.Component   {
        
       }
       validateUrl(value){
-        console.log(value.length);
+        
         return value.length>=3;
         
 

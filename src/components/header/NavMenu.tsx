@@ -1,16 +1,19 @@
+import React, { useEffect, useState } from 'react';
 import { Button, createStyles, makeStyles, MenuItem, Popover, Theme, Toolbar, Typography, useMediaQuery, useTheme } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton/IconButton';
 import Menu from '@material-ui/core/Menu/Menu';
-import React from 'react';
+
 import ListRoundedIcon from '@material-ui/icons/ListRounded';
 // import styles from './Nav.module.scss';
 import { withRouter } from 'react-router-dom';
 
 import MenuIcon from "@material-ui/icons/Menu";
+import { Category } from '../../shared/types';
+import { getCategories } from '../../shared/api';
 
 
 
-  
+
 const useStyles = makeStyles((theme: Theme) => 
 createStyles({
     navbar : {
@@ -33,6 +36,18 @@ createStyles({
  
 
 const NavMenu = () => {
+
+  // const [topItems, setTopItems] = useState<string[]>([]);
+  const [bottomNavItems, setBottomNavItems] = useState<Category[]>([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getCategories();
+      setBottomNavItems(res.data);
+    }
+    fetchData();
+  }, [])
+
   // const { history } = props;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
@@ -57,23 +72,23 @@ const NavMenu = () => {
   };
 
 
-    const menuItems = [  //for mobile menu
-        {
-            id: 1,
-          menuTitle: "Home",
-          pageURL: "../../src/App.tsx"
-        },
-        {
-            id:2,
-          menuTitle: "What Is Gdpr",
-          pageURL: "/whatIsGdpr"
-        },
-        {
-            id:3,
-          menuTitle: "Products",
-          pageURL: "/products"
-        }
-      ];
+    // const menuItems = [  //for mobile menu
+    //     {
+    //         id: 1,
+    //       menuTitle: "Home",
+    //       pageURL: "../../src/App.tsx"
+    //     },
+    //     {
+    //         id:2,
+    //       menuTitle: "What Is Gdpr",
+    //       pageURL: "/whatIsGdpr"
+    //     },
+    //     {
+    //         id:3,
+    //       menuTitle: "Products",
+    //       pageURL: "/products"
+    //     }
+    //   ];
     return(
       isMobile ? (
         
@@ -101,11 +116,13 @@ const NavMenu = () => {
             
            
           >
-            {menuItems.map(menuItem => {
-              const { menuTitle, pageURL } = menuItem;
+            {bottomNavItems.map(bottomNavItem => {
+              // const { menuTitle, pageURL } = menuItem;
               return (
-                <MenuItem key={menuItem.id} onClick={() => handleMenuClick(pageURL)}>
-                  {menuTitle}
+                <MenuItem key={bottomNavItem.id} 
+                // onClick={() => handleMenuClick(pageURL)}>
+                >
+                  {bottomNavItem.title}
                 </MenuItem>
               );
             })}
@@ -118,13 +135,14 @@ const NavMenu = () => {
        
          <Toolbar className={classes.navbar}>
             <div>
-        {menuItems.map(menuItem => {
-            const { menuTitle,pageURL } = menuItem;
+        {bottomNavItems.map(bottomNavItem => {
+            // const { menuTitle,pageURL } = menuItem;
             return ( 
-                <Button key={menuItem.id}
+                <Button key={bottomNavItem.id}
                    variant="contained" color="primary" className={classes.buttons}
-                   onClick={() => handleMenuClick(pageURL)}>
-                {menuTitle}
+                  // 
+                  >
+                {bottomNavItem.title}
                 </Button>
              
             );
