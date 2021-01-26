@@ -1,6 +1,6 @@
 import { Avatar,AppBar, Box, Button, Container,IconButton,Toolbar, Typography} from '@material-ui/core';
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import './Header.scss';
 import ListRoundedIcon from '@material-ui/icons/ListRounded';
 import logo from "../../assets/images/gdpr.png";
@@ -60,7 +60,7 @@ const Header: React.FC=()=>{
       
               <Box margin={1}>
                 <Button color= "inherit" variant="outlined"  className={classes.buttons}>Log In</Button>
-             
+             {/* <Link to "/counter">Counter</Link> */}
               <Button color= "secondary" variant="contained" className={classes.buttons} >Sign Up</Button>
               </Box>
             </Toolbar>

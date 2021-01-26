@@ -5,12 +5,28 @@ export interface Category{
 
 
 }
-export interface CardsCathegory{
-    id: string;
+export interface Article {
+    id: number;
     title: string;
+    annotation: string;
+    description: string;
+    slug: string;
+    image: string;
+    locale: string;
+    visited: boolean;
+    is_published: boolean;
+    created_by: string;
+    updated_by: string;
     created_at: string;
-    annotation: Text;
-  
-
-
+    updated_at: string;
+    editors_choice: boolean;
+    author_id: number;
+    category_id: number;
+    type_id: number;
+    is_news: boolean;
+    user_id: number;
+    authors_id: number;
+    is_leader: boolean;
+    likesCount?: number;
+    commentsCount?: number;
 }

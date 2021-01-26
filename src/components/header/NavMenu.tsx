@@ -5,7 +5,7 @@ import Menu from '@material-ui/core/Menu/Menu';
 
 import ListRoundedIcon from '@material-ui/icons/ListRounded';
 // import styles from './Nav.module.scss';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 import MenuIcon from "@material-ui/icons/Menu";
 import { Category } from '../../shared/types';
@@ -135,10 +135,10 @@ const NavMenu = () => {
        
          <Toolbar className={classes.navbar}>
             <div>
-        {bottomNavItems.map(bottomNavItem => {
+        {/* {bottomNavItems.map(bottomNavItem => {
             // const { menuTitle,pageURL } = menuItem;
             return ( 
-                <Button key={bottomNavItem.id}
+               3 <Button key={bottomNavItem.id}
                    variant="contained" color="primary" className={classes.buttons}
                   // 
                   >
@@ -146,7 +146,18 @@ const NavMenu = () => {
                 </Button>
              
             );
-          })}
+
+          })} */}
+ <Button  variant="contained" color="primary" className={classes.buttons} ><Link to="/articles">Все статьи</Link></Button>
+          {
+            bottomNavItems.map(item => (
+            <Button  variant="contained" color="primary" className={classes.buttons} key={item.id} >
+              <Link to={`/articles/${item.id}`}>{item.title}</Link>
+              </Button>
+              ))
+          }
+
+
           </div>
           </Toolbar>
       )

@@ -1,0 +1,47 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid #ededed;
+    border-radius: 5px;
+    margin-top: 1rem;
+    max-width: 80%;
+    min-width: 600px;
+    margin: 0 auto;
+
+    .formControl {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            color: gray;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 0.5rem 1rem;
+            border: 1px solid gray;
+            margin-right: 1rem;
+            outline: none;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+        }
+    }
+
+    .user {
+        display: flex;
+        margin-bottom: 2rem;
+    }
+
+    .comment {
+        display: flex;
+    }
+
+    .controls {
+        display: flex;
+        justify-content: flex-end;
+    }
+}
