@@ -1,0 +1,88 @@
+.Header{
+    height: 60px;
+
+}
+.App-logo{
+    background-image: url(../../assets/images/gdpr.png); max-width: 45px;
+    max-height: 45px;}
+    .header_top {
+        height: 80px;
+        background-color: inherit;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      
+        .header_brand {
+          height: inherit;
+          flex: 1 1 20%;
+      
+          .header_logo {
+            max-width: 45px;
+    max-height: 45px;
+            display: block;
+            height: inherit;
+            background-position: 50%;
+            background-repeat: no-repeat;
+            background-image: url(../../assets/images/gdprlogo.png);
+          }
+        }
+      
+        .header_top_menu {
+          flex: 1 1 60%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      
+          ul {
+            flex: 1;
+            color: #303030;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 400;
+            margin: 15px 0;
+          }
+        }
+      
+        .header_login {
+          flex: 1 1 20%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+      
+      @media (max-width: 1200px) {
+        .header_top {
+          
+          .header_top_menu > ul {
+            width: 45%;
+          }
+        }
+      }
+      
+      @media (max-width: 992px) {
+        .header_top {
+      
+          .header_top_menu > ul {
+            width: 65%;
+          }
+        }
+      }
+      
+      @media screen and (max-width: 768px) {
+        .header_top {
+      
+          .header_top_menu {
+            display: none;
+          }
+      
+          .header_login {
+            width: 90px;
+            font-size: 14px;
+          }
+        }
+      }
+      

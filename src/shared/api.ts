@@ -25,3 +25,17 @@ export const getArticles = (categoryId?: string) => {
     })
       .then(res => res.data);
 };
+
+
+export const loadState = () => {
+    try {
+      const state = localStorage.getItem('profile');
+      if (state === null) {
+        return {};
+      }
+  
+      return JSON.parse(state)
+    } catch (err) {
+      console.warn('%c load state error', 'color: #b00', err);
+    }
+  };

@@ -45,6 +45,7 @@ export const checkEmail = (email: string) =>{
     var [b]= [{name:"Email not valid!"}];
     return new Promise<string>((resolve, reject) =>{
        
+        
       
              if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)) { 
               reject (b.name);}

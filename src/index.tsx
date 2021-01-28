@@ -1,9 +1,24 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { loadState } from './shared/api';
+import { reducer } from './shared/app.context';
+import { createStore } from 'redux';
+
+
+// const store = createStore(
+//   dispatch,
+//   initialState ,// not necessary, but nice for debugging
+// );
+
+// // save the state whenever the Redux store changes
+// store.subscribe(() => {
+//   const state = store.getState();
+
+// });
 
 ReactDOM.render(
   <Router>

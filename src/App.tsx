@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import './App.scss';
 import  NavMenu from './components/header/NavMenu'
 import { AppBar, Button, Card, CardActions, CardContent, CardMedia, Container, CssBaseline, Grid, Paper, Typography} from '@material-ui/core';
@@ -16,6 +16,10 @@ import Counter from './components/Counter';
 import CommentForm from './components/comment-form/CommentForm';
 import ArticlesPage from './pages/ArticlesPage';
 import ArticlePage from './pages/article/ArticlePage';
+import { Profile } from './shared/types';
+import Appcontext, { reducer } from './shared/app.context';
+import LoginPage from './pages/login/LoginPage';
+import { loadState } from './shared/api';
 // import ArticlesPage from './pages/ArticlesPage';
 
 
@@ -79,23 +83,26 @@ cardGrid:{
 
 
 const  App : React.FC= () => {
-  // const [cards, setCards] = useState<CardsCathegory[]>([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const res = await getCardsCategories();
-  //     setCards(res.data);
-  //   }
-  //   fetchData();
-  // }, [])
+  const initstate = loadState();
+
+  const [state, dispatch] = useReducer(reducer, {
+    profile: initstate,
+  })
+
   
   const classes = useStyles();
   return (
+    <Appcontext.Provider value={{state,dispatch}}>
     <><>
       <div className="App">
 
         <AppBar position="fixed" className={classes.app}>
 
-          <Header ></Header>
+          {/* <Header /></Header> */}
+          <Header />
+          {/* <Appcontext.Consumer>
+            {(value)=>(<Header  profile={value.profile}/>)}
+          </Appcontext.Consumer> */}
 
 
           <div className={classes.container}>
@@ -110,10 +117,11 @@ const  App : React.FC= () => {
               <Switch>
               <Route path="/counter" render={(props) => <Counter initialCount={3} />} />
                 {/* <Route  path="/whatIsGdpr" >About</Route> */}
-                <Route exact path="/articles" component={ArticlesPage}  />
+                <Route  path="/articles" component={ArticlesPage}  />
           <Route path="/articles/:categoryId" component={ArticlesPage} />
           <Route path="/article/:articleId" component={ArticlePage} />
-
+          <Route path="/login" component={LoginPage} />
+         
             
          
               </Switch>
@@ -139,6 +147,7 @@ const  App : React.FC= () => {
    {/* <ArticlesPage/> */}
  
       </>
+      </Appcontext.Provider>
  
   );
 }
