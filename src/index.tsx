@@ -7,6 +7,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { loadState } from './shared/api';
 import { reducer } from './shared/app.context';
 import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import store from './shared/redux/store';
 
 
 // const store = createStore(
@@ -21,9 +23,11 @@ import { createStore } from 'redux';
 // });
 
 ReactDOM.render(
+  <Provider store={store}>
   <Router>
     <App />
-  </Router>,
+  </Router>
+  </Provider>,
   document.getElementById('root')
 );
 

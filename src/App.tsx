@@ -83,10 +83,11 @@ cardGrid:{
 
 
 const  App : React.FC= () => {
-  const initstate = loadState();
+  const persistedProfile = loadState();
 
   const [state, dispatch] = useReducer(reducer, {
-    profile: initstate,
+    profile:   persistedProfile 
+    
   })
 
   

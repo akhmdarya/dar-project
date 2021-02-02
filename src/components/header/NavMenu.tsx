@@ -7,9 +7,14 @@ import ListRoundedIcon from '@material-ui/icons/ListRounded';
 // import styles from './Nav.module.scss';
 import { Link, withRouter } from 'react-router-dom';
 
-import MenuIcon from "@material-ui/icons/Menu";
-import { Category } from '../../shared/types';
 import { getCategories } from '../../shared/api';
+import { Category, Profile } from '../../shared/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCategories } from '../../shared/redux/categories/categories.selectors';
+import { fetchCategories, setCategories } from '../../shared/redux/categories/categories.actions';
+import { selectArticles } from '../../shared/redux/articles/articles.selectors';
+import { fetchArticles } from '../../shared/redux/articles/articles.actions';
+
 
 
 
@@ -29,8 +34,24 @@ createStyles({
         margin : theme.spacing(1),
        },
        root:{
+        top: "197px!important",
         justifyContent: "space-around",
-       }
+        backgroundColor: 'rgba(0,0,0,0.5)',
+       },
+       
+       popover_container:{
+         
+          top: "197px!important",
+          // right: '200px!important'
+
+         },
+         popover:{
+          left: '0!important',
+          top: '0px!important',
+          minWidth: '200px!important',
+      
+         }
+       
 }));
 
  
@@ -38,15 +59,41 @@ createStyles({
 const NavMenu = () => {
 
   // const [topItems, setTopItems] = useState<string[]>([]);
-  const [bottomNavItems, setBottomNavItems] = useState<Category[]>([]);
+  // const [bottomNavItems, setBottomNavItems] = useState<Category[]>([]);
+  
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const res = await getCategories();
+  //     setBottomNavItems(res.data);
+  //   }
+  //   fetchData();
+  // }, [])
+
+
+  const dispatch = useDispatch();
+
+
+  const categories = useSelector(selectCategories);
+  console.log('CATEGORIES', categories)
   
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await getCategories();
-      setBottomNavItems(res.data);
-    }
-    fetchData();
+    dispatch(fetchCategories());
   }, [])
+
+
+
+
+
+  const articles = useSelector(selectArticles);
+  console.log('ARTICLES', articles)
+  
+  useEffect(() => {
+    dispatch(fetchArticles());
+  }, [])
+  
+
+
+
 
   // const { history } = props;
   const classes = useStyles();
@@ -98,36 +145,41 @@ const NavMenu = () => {
           <ListRoundedIcon />
         </IconButton>
 
-          <Popover
+          <Popover classes={{
+          root:classes.root,
+            paper: classes.popover,
+          }}
             id={id}
+           
             open={open}
             anchorEl={anchorEl}
              onClose={handleClose}
             anchorOrigin={{
               vertical: "top",
-              horizontal: "right"
+              horizontal: "left"
             }}
             keepMounted
             transformOrigin={{
               vertical: "top",
-              horizontal: "right"
+              horizontal: "left"
             }}
            
             
            
           >
-            {bottomNavItems.map(bottomNavItem => {
+            {categories.map(categories => {
               // const { menuTitle, pageURL } = menuItem;
               return (
-                <MenuItem key={bottomNavItem.id} 
+                <MenuItem key={categories.id} 
                 // onClick={() => handleMenuClick(pageURL)}>
                 >
-                  {bottomNavItem.title}
+                  {categories.title}
                 </MenuItem>
               );
             })}
            
-          </Popover></div>
+          </Popover>
+          </div>
          
         
         
@@ -150,7 +202,7 @@ const NavMenu = () => {
           })} */}
  <Button  variant="contained" color="primary" className={classes.buttons} ><Link to="/articles">Все статьи</Link></Button>
           {
-            bottomNavItems.map(item => (
+            categories.map(item => (
             <Button  variant="contained" color="primary" className={classes.buttons} key={item.id} >
               <Link to={`/articles/${item.id}`}>{item.title}</Link>
               </Button>
