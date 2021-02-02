@@ -1,12 +1,15 @@
+import { useParams } from 'react-router-dom';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
 import { getArticles } from '../../api';
-import { ArticlesActionTypes, fetchArticlesError, fetchArticlesSuccess } from './articles.actions';
+import { Article } from '../../types';
+import { ArticlesAction, ArticlesActionTypes, ArticlesCathegoryAction, fetchArticlesError, fetchArticlesSuccess } from './articles.actions';
 
 
-export function* fetchArticlesAsync() {
+export function* fetchArticlesAsync(action:ArticlesCathegoryAction) {
+  
     try {
-        const res = yield call(getArticles);
-        yield put(fetchArticlesSuccess(res.data));
+        const data = yield getArticles(action.payload);
+        yield put(fetchArticlesSuccess(data));
     } catch(e) {
         yield put(fetchArticlesError(e));
     }

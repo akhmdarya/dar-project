@@ -1,4 +1,4 @@
- import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getArticles } from '../shared/api';
 import { Article } from '../shared/types';
 import { getArticle } from '../shared/api';
@@ -9,7 +9,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { selectArticles } from '../shared/redux/articles/articles.selectors';
-import { fetchArticles, setArticles } from '../shared/redux/articles/articles.actions';
+import { fetchArticles, setArticles, setArticlesCathegory } from '../shared/redux/articles/articles.actions';
 
 const useStyles = makeStyles((theme) => ({
     app : {
@@ -70,34 +70,38 @@ const ArticlesPage: React.FC = ()=>{
 
     const {categoryId} = useParams<{ categoryId: string }>();
   
-    // const [articles, setArticles] = useState<Article[]>([]);
+    // const [articless, setArticless] = useState<Article[]>([]);
 
     // useEffect(() => {
     //     getArticles(categoryId)
-    //       .then((articles) => {
-    //         setArticles(articles);
+    //       .then((articless) => {
+    //         setArticless(articless);
     //       })
     //       .catch((error) => {
     //         console.log(error);
     //       });
     //   }, [categoryId]);
-// 
+
 
     
   const dispatch = useDispatch();
   
   const articles = useSelector(selectArticles);
   console.log('ARTICLES', articles)
+  console.log('CATH', categoryId+"!!!!!!")
   
   useEffect(() => {
-    getArticles(categoryId)
-    .then((articles) => {
+    // getArticles(categoryId)
+    // .then((articles) => {
+      dispatch(setArticlesCathegory(categoryId));
+      
       dispatch(setArticles(articles));
       dispatch(fetchArticles());
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+      console.log('CATH', categoryId+"&&&&&");
+            // })
+            // .catch((error) => {
+            //   console.log(error);
+            // });
         
 
   }, [categoryId])
@@ -160,20 +164,20 @@ const ArticlesPage: React.FC = ()=>{
 
         <Container className={classes.cardGrid} maxWidth="md">
           <Grid container spacing={4}>
-            {articles.map((articles) =>(
-              <Grid item key={articles.id} xs={12} sm={6} md={4}>
+            {articles.map((article) =>(
+              <Grid item key={article.id} xs={12} sm={6} md={4}>
               
                 <Card>
                   <CardMedia className={classes.cardMedia}
-                  image={`https://dev-darmedia-uploads.s3.eu-west-1.amazonaws.com/${articles.image}`}
-                  title = {articles.title}
+                  image={`https://dev-darmedia-uploads.s3.eu-west-1.amazonaws.com/${article.image}`}
+                  title = {article.title}
                   
                   />
                   <CardContent className={classes.cardContent}>
-                  <Link to= {`/article/${articles.id}`}>
-                      <Typography variant="h5" gutterBottom>{articles.title}</Typography></Link>
-                      <Typography gutterBottom variant="h6">{articles.annotation}</Typography>
-                      <Typography align="right">Дата публикации: {articles.created_at}</Typography>
+                  <Link to= {`/article/${article.id}`}>
+                      <Typography variant="h5" gutterBottom>{article.title}</Typography></Link>
+                      <Typography gutterBottom variant="h6">{article.annotation}</Typography>
+                      <Typography align="right">Дата публикации: {article.created_at}</Typography>
                     </CardContent>
                   <CardActions>
                     <Button size="small" color="primary">

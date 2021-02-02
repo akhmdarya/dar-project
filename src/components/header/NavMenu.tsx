@@ -12,8 +12,8 @@ import { Category, Profile } from '../../shared/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCategories } from '../../shared/redux/categories/categories.selectors';
 import { fetchCategories, setCategories } from '../../shared/redux/categories/categories.actions';
-import { selectArticles } from '../../shared/redux/articles/articles.selectors';
-import { fetchArticles } from '../../shared/redux/articles/articles.actions';
+// import { selectArticles } from '../../shared/redux/articles/articles.selectors';
+// import { fetchArticles } from '../../shared/redux/articles/articles.actions';
 
 
 
@@ -84,12 +84,12 @@ const NavMenu = () => {
 
 
 
-  const articles = useSelector(selectArticles);
-  console.log('ARTICLES', articles)
+  // const articles = useSelector(selectArticles);
+  // console.log('ARTICLES', articles)
   
-  useEffect(() => {
-    dispatch(fetchArticles());
-  }, [])
+  // useEffect(() => {
+  //   dispatch(fetchArticles());
+  // }, [])
   
 
 
@@ -198,7 +198,6 @@ const NavMenu = () => {
                 </Button>
              
             );
-
           })} */}
  <Button  variant="contained" color="primary" className={classes.buttons} ><Link to="/articles">Все статьи</Link></Button>
           {
