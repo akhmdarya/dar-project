@@ -125,14 +125,10 @@ const  App : React.FC= () => {
 
       
     {/*      <Container className={classes.main} component="div" maxWidth="lg">
-
             <div>
-
               <Likes />
-
             </div>
             <BasicTextFields value="" />
-
             <Counter initialCount={3} />
           </Container>
         </React.Fragment> */}
