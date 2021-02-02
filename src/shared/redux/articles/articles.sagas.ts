@@ -1,14 +1,15 @@
+import { fetchArticlesError, fetchArticlesSuccess } from './articles.actions';
+import { getArticles } from './../../api';
+import { ArticlesActionTypes, FetchArticlesAction } from './articles.types';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
-import { getArticles } from '../../api';
-import { ArticlesActionTypes, fetchArticlesError, fetchArticlesSuccess } from './articles.actions';
 
 
-export function* fetchArticlesAsync() {
+export function* fetchArticlesAsync(action: FetchArticlesAction) {
     try {
-        const res = yield call(getArticles);
-        yield put(fetchArticlesSuccess(res.data));
-    } catch(e) {
-        yield put(fetchArticlesError(e));
+        const data = yield call(getArticles, action.payload.categoryId);
+        yield put(fetchArticlesSuccess(data));
+    } catch (e) {
+        yield put(fetchArticlesError(e.message));
     }
 }
 

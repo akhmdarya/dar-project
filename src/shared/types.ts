@@ -30,7 +30,6 @@ export interface Article {
     likesCount?: number;
     commentsCount?: number;
 }
-
 export interface Profile{
     username:string;
     firstname: string;

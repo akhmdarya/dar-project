@@ -5,7 +5,6 @@
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
-    "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.6.0",
@@ -13,25 +12,14 @@
     "@types/node": "^12.19.12",
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
-    "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
-    "dns": "^0.2.2",
-    "node-fetch": "^2.6.1",
     "node-sass": "^4.14.1",
-    "puppeteer": "^5.5.0",
-    "puppeteer-har": "^1.1.2",
-    "qs": "^6.9.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "redux": "^4.0.5",
-    "redux-saga": "^1.1.3",
-    "reselect": "^4.0.0",
     "styled-components": "^5.2.1",
-    "tcp-ping": "^0.1.1",
     "typescript": "^4.1.3",
     "web-vitals": "^0.2.4"
   },
@@ -60,7 +48,6 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.7",
-    "redux-devtools-extension": "^2.13.8"
+    "@types/styled-components": "^5.1.7"
   }
 }

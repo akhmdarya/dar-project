@@ -1,38 +1,21 @@
-import { Article } from "../../types";
+import { ArticlesActionTypes, FetchArticlesAction, FetchArticlesErrorAction, FetchArticlesSuccessAction } from './articles.types';
+import { Article } from './../../types';
 
-export interface ArticlesAction<T> {
-    type: ArticlesActionTypes;
-    payload?: T;
-}
-
-export enum ArticlesActionTypes {
-    SET_ARTICLES = 'SET_ARTICLES',
-    FETCH_ARTICLES = 'FETCH_ARTICLES',
-    FETCH_ARTICLES_SUCCESS = 'FETCH_ARTICLES_SUCCESS',
-    FETCH_ARTICLES_ERROR = 'FETCH_ARTICLES_ERROR'
-}
-
-export const setArticles = (articles: Article[]): ArticlesAction<Article[]> => {
+export const fetchArticles = (params: {categoryId: string}): FetchArticlesAction => {
     return {
-        type: ArticlesActionTypes.SET_ARTICLES,
-        payload: articles
+        type: ArticlesActionTypes.FETCH_ARTICLES,
+        payload: params
     }
 }
 
-export const fetchArticles = (): ArticlesAction<null> => {
-    return {
-        type: ArticlesActionTypes.FETCH_ARTICLES
-    }
-}
-
-export const fetchArticlesSuccess = (articles: Article[]): ArticlesAction<Article[]> => {
+export const fetchArticlesSuccess = (articles: Article[]): FetchArticlesSuccessAction => {
     return {
         type: ArticlesActionTypes.FETCH_ARTICLES_SUCCESS,
         payload: articles
     }
 }
 
-export const fetchArticlesError = (error: any): ArticlesAction<any> => {
+export const fetchArticlesError = (error: string): FetchArticlesErrorAction => {
     return {
         type: ArticlesActionTypes.FETCH_ARTICLES_ERROR,
         payload: error,

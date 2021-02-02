@@ -1,9 +1,9 @@
 import { createSelector } from 'reselect';
 import { RootState } from '../root-reducers';
 
-const selectArticleState = (state: RootState) => state.article;
+const selectArticlesState = (state: RootState) => state.articles;
 
 export const selectArticles = createSelector(
-  [selectArticleState],
+  [selectArticlesState],
   (state) => state.articles
 );

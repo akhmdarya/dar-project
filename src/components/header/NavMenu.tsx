@@ -7,14 +7,12 @@ import ListRoundedIcon from '@material-ui/icons/ListRounded';
 // import styles from './Nav.module.scss';
 import { Link, withRouter } from 'react-router-dom';
 
+import MenuIcon from "@material-ui/icons/Menu";
+import { Category } from '../../shared/types';
 import { getCategories } from '../../shared/api';
-import { Category, Profile } from '../../shared/types';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchCategories } from '../../shared/redux/categories/categories.actions';
 import { selectCategories } from '../../shared/redux/categories/categories.selectors';
-import { fetchCategories, setCategories } from '../../shared/redux/categories/categories.actions';
-import { selectArticles } from '../../shared/redux/articles/articles.selectors';
-import { fetchArticles } from '../../shared/redux/articles/articles.actions';
-
 
 
 
@@ -34,24 +32,8 @@ createStyles({
         margin : theme.spacing(1),
        },
        root:{
-        top: "197px!important",
         justifyContent: "space-around",
-        backgroundColor: 'rgba(0,0,0,0.5)',
-       },
-       
-       popover_container:{
-         
-          top: "197px!important",
-          // right: '200px!important'
-
-         },
-         popover:{
-          left: '0!important',
-          top: '0px!important',
-          minWidth: '200px!important',
-      
-         }
-       
+       }
 }));
 
  
@@ -68,31 +50,15 @@ const NavMenu = () => {
   //   }
   //   fetchData();
   // }, [])
-
-
   const dispatch = useDispatch();
+  // const [topItems, setTopItems] = useState<string[]>(topHeaderItems);
 
-
-  const categories = useSelector(selectCategories);
-  console.log('CATEGORIES', categories)
+  const bottomNavItems = useSelector(selectCategories);
+  console.log('CATEGORIES', bottomNavItems)
   
   useEffect(() => {
     dispatch(fetchCategories());
   }, [])
-
-
-
-
-
-  const articles = useSelector(selectArticles);
-  console.log('ARTICLES', articles)
-  
-  useEffect(() => {
-    dispatch(fetchArticles());
-  }, [])
-  
-
-
 
 
   // const { history } = props;
@@ -145,41 +111,36 @@ const NavMenu = () => {
           <ListRoundedIcon />
         </IconButton>
 
-          <Popover classes={{
-          root:classes.root,
-            paper: classes.popover,
-          }}
+          <Popover
             id={id}
-           
             open={open}
             anchorEl={anchorEl}
              onClose={handleClose}
             anchorOrigin={{
               vertical: "top",
-              horizontal: "left"
+              horizontal: "right"
             }}
             keepMounted
             transformOrigin={{
               vertical: "top",
-              horizontal: "left"
+              horizontal: "right"
             }}
            
             
            
           >
-            {categories.map(categories => {
+            {bottomNavItems.map(bottomNavItem => {
               // const { menuTitle, pageURL } = menuItem;
               return (
-                <MenuItem key={categories.id} 
+                <MenuItem key={bottomNavItem.id} 
                 // onClick={() => handleMenuClick(pageURL)}>
                 >
-                  {categories.title}
+                  {bottomNavItem.title}
                 </MenuItem>
               );
             })}
            
-          </Popover>
-          </div>
+          </Popover></div>
          
         
         
@@ -202,7 +163,7 @@ const NavMenu = () => {
           })} */}
  <Button  variant="contained" color="primary" className={classes.buttons} ><Link to="/articles">Все статьи</Link></Button>
           {
-            categories.map(item => (
+            bottomNavItems.map(item => (
             <Button  variant="contained" color="primary" className={classes.buttons} key={item.id} >
               <Link to={`/articles/${item.id}`}>{item.title}</Link>
               </Button>

@@ -1,9 +1,8 @@
 import { Button } from '@material-ui/core';
 import { strict } from 'assert';
 import React, { useEffect, useRef, useState } from 'react';
-import AppContext from '../../shared/app.context';
 import { checkEmail, checkEmptyUsername } from '../../shared/util';
-import Profile from '../profile/Profile';
+
 // import Button from '../button/Button';
 import styles from './CommentForm.module.scss';
 
@@ -92,7 +91,6 @@ const CommentForm = (props:
         checkEmail(fields.email)
         .then(res=> setMessage(res))
         .catch(element=> addError(element))
-        setErrors([setinitialError]);
       
     }, [fields])
 
@@ -104,9 +102,11 @@ const CommentForm = (props:
     }
 
     return (
-        <AppContext.Consumer>
-        {({state: {profile}}) => profile ? 
-            (<div className={styles.wrapper}>
+        <>
+        
+    
+            {/* <CommentContainer fields={fields}/> */}
+            <div className={styles.wrapper}>
                 <div className={styles.user}>
                     <div className={styles.formControl}>
                         <label>Username</label>
@@ -116,7 +116,6 @@ const CommentForm = (props:
                         <label>Email</label>
                         <input name="email" type="text" value={fields.email} onChange={e => fieldChange('email', e.target.value)} />
                     </div>
-                    <Profile username={profile.username} avatar={profile.avatar} />
                 </div>
                 <div className={styles.comment}>
                     <div className={styles.formControl}>
@@ -124,14 +123,26 @@ const CommentForm = (props:
                         <textarea name="comment" value={fields.comment} onChange={e => fieldChange('comment', e.target.value)} />
                     </div>
                 </div>
-                <div className={styles.controls}>
-                    <button title="Submit" onClick={onSubmit} />
+                {message && <div>{message}</div>}
+ {/* {error && <div>{error}</div>} */}
+ <div>{ errors && <div>{errors.map(error => {
+              // const { menuTitle, pageURL } = menuItem;
+             
+                <div key={error.name} 
+                // onClick={() => handleMenuClick(pageURL)}>
+                >
+                  {error.name}
                 </div>
-            </div>
-            ) : <div className={styles.wrapper}>Чтобы оставить комментарий войдите в аккаунт</div> }
-        </AppContext.Consumer>
+              
+            })}</div>}</div>
 
-    
+<ErrorsTable errors={errors} />
+
+                <div className={styles.controls}>
+                    <Button title="Submit" color="primary" onClick={onSubmit}>HHHHH</Button>
+                  
+                </div>
+            </div></>
     )
 }
 

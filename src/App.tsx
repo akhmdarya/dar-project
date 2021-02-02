@@ -20,7 +20,6 @@ import { Profile } from './shared/types';
 import Appcontext, { reducer } from './shared/app.context';
 import LoginPage from './pages/login/LoginPage';
 import { loadState } from './shared/api';
-// import ArticlesPage from './pages/ArticlesPage';
 
 
 
@@ -99,11 +98,7 @@ const  App : React.FC= () => {
 
         <AppBar position="fixed" className={classes.app}>
 
-          {/* <Header /></Header> */}
-          <Header />
-          {/* <Appcontext.Consumer>
-            {(value)=>(<Header  profile={value.profile}/>)}
-          </Appcontext.Consumer> */}
+          <Header ></Header>
 
 
           <div className={classes.container}>
@@ -118,11 +113,11 @@ const  App : React.FC= () => {
               <Switch>
               <Route path="/counter" render={(props) => <Counter initialCount={3} />} />
                 {/* <Route  path="/whatIsGdpr" >About</Route> */}
-                <Route  path="/articles" component={ArticlesPage}  />
+                <Route exact path="/articles" component={ArticlesPage}  />
           <Route path="/articles/:categoryId" component={ArticlesPage} />
           <Route path="/article/:articleId" component={ArticlePage} />
           <Route path="/login" component={LoginPage} />
-         
+
             
          
               </Switch>
@@ -149,7 +144,6 @@ const  App : React.FC= () => {
  
       </>
       </Appcontext.Provider>
- 
   );
 }
 
