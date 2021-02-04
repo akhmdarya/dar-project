@@ -20,6 +20,7 @@ import { Profile } from './shared/types';
 import Appcontext, { reducer } from './shared/app.context';
 import LoginPage from './pages/login/LoginPage';
 import { loadState } from './shared/api';
+// import { loadState } from './shared/api';
 
 
 
@@ -82,17 +83,17 @@ cardGrid:{
 
 
 const  App : React.FC= () => {
-  const persistedProfile = loadState();
+  // const persistedProfile = loadState();
 
-  const [state, dispatch] = useReducer(reducer, {
-    profile:   persistedProfile 
+  // const [state, dispatch] = useReducer(reducer, {
+  //   profile:   persistedProfile 
     
-  })
+  // })
 
   
   const classes = useStyles();
   return (
-    <Appcontext.Provider value={{state,dispatch}}>
+    // <Appcontext.Provider value={{state,dispatch}}>
     <><>
       <div className="App">
 
@@ -139,7 +140,7 @@ const  App : React.FC= () => {
    {/* <ArticlesPage/> */}
  
       </>
-      </Appcontext.Provider>
+      // </Appcontext.Provider>
   );
 }
 

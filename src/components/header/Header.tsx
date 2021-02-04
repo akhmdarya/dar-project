@@ -6,10 +6,12 @@ import styles from './Header.module.scss';
 import ListRoundedIcon from '@material-ui/icons/ListRounded';
 import logo from "../../assets/images/gdpr.png";
 import {makeStyles} from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppContext, { ActionTypes } from '../../shared/app.context';
 
-import Profile from '../profile/Profile';
+// import Profile from '../profile/Profile';
+import { selectLogin } from '../../shared/redux/login/login.selectors';
 
 const useStyles = makeStyles((theme) => ({
     app : {
@@ -54,19 +56,21 @@ const useStyles = makeStyles((theme) => ({
 
 const Header: React.FC=()=>{
   const history= useHistory();
-  const {dispatch} = useContext(AppContext);
+  // const {dispatch} = useContext(AppContext);
    const goToLogin = () =>{
     
     history.push('/login');
    }
 
    const goToLogOut = () => {
-    dispatch({type: ActionTypes.RESET_PROFILE, payload: null})
+    // dispatch({type: ActionTypes.RESET_PROFILE, payload: null})
     history.push('/articles');
    }
     const classes = useStyles();
-    const {state: {profile}} = useContext(AppContext);
-
+    // const {state: {profile}} = useContext(AppContext);
+    const dispatch = useDispatch();
+    const profile = useSelector(selectLogin);
+    console.log(profile.length+"yyyyyy")
 
     return(
         <Container fixed className={classes.container}>
@@ -83,18 +87,31 @@ const Header: React.FC=()=>{
               </IconButton>
       
               <Box margin={1}>
-
+             
               {
-                 profile ? <><Profile username={profile.username} avatar={profile.avatar} />
-                <button title={'Log out'} onClick={goToLogOut}>LOG OUT!</button></>
+                 profile.length!=0 ? 
+               profile.map((profil) =>(
+                 <>
+                {profil.username} {profil.avatar}
+               
+                <button title={'Log out'} onClick={goToLogOut}>LOG OUT!!!!</button>
+             
+               {/* <Profile username={ profile.username}> */}
+                <button title={'Login'}  onClick={goToLogin} >Login!!!!</button></>
+                
+                   )) 
+                 
                  
                  :
              <div className={styles.header_login}>
-              <button title={'Login'}  onClick={goToLogin} >Login</button>
+              <button title={'Login'}  onClick={goToLogin} >Login^^^</button>
+             
+              
              
             </div>
  
               }
+              {/* <button title={'Login'}  onClick={goToLogin} >Login</button> */}
               <Button color= "secondary" variant="contained" className={classes.buttons} >Sign Up</Button>
             
               </Box>
