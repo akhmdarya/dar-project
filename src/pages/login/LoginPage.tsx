@@ -4,7 +4,7 @@ import Profile from '../../components/profile/Profile';
 import { getProfile, login } from '../../shared/api';
 
 import AppContext, { ActionTypes } from '../../shared/app.context';
-import { selectLogin } from '../../shared/redux/login/login.selectors';
+// import { selectLogin } from '../../shared/redux/login/login.selectors';
 import styles from './LoginPage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLogin, fetchLoginSuccess } from '../../shared/redux/login/login.actions';
@@ -17,7 +17,7 @@ const LoginPage: React.FC = () => {
     let newType='';
     const dispatch = useDispatch();
   
-    const profile = useSelector(selectLogin);
+    // const profile = useSelector(selectLogin);
     const handlelogin = () => {
     //     console.log(form)
     //     if (form.password && form.username) {
@@ -62,7 +62,7 @@ const LoginPage: React.FC = () => {
                     onChange={(e) => {setForm(state => ({...state, username: e.target.value}))}}
                     placeholder="Enter your username" />
                 <input 
-                    className={styles.input} 
+                 
                     value={form.password}
                     type="text" 
                     name="password"

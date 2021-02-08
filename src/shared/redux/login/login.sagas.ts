@@ -1,4 +1,4 @@
-import { fetchLoginError, fetchLoginSuccess } from './login.actions';
+import { fetchLoginError, fetchLoginSuccess, fetchProfile, fetchProfileSuccess } from './login.actions';
 import { getProfile, login} from './../../api';
 import { LoginActionTypes, FetchLoginAction } from './login.types';
 import { takeLatest, call, put, all } from 'redux-saga/effects';
@@ -12,16 +12,22 @@ export function* fetchLoginAsync(action: FetchLoginAction) {
                 login(action.payload.username,action.payload.password)
                 .then(res => {
                                 if (res.data.token) {
-                                    localStorage.setItem('authToken', res.data.token)
+                                    localStorage.setItem('authToken', res.data.token);
+                                    put(  fetchLoginSuccess(res.data));
                                 } 
                                 return getProfile();
                             })
                             .then(res => {
-                                 fetchLoginSuccess(res.data);
+                                put(  fetchLoginSuccess(res.data));
+                                 console.log(res.data.username+"aaaaaaaaa")
                                 // history.replace('/');
                             })
                             // yield getProfile();
                             yield put(fetchLoginSuccess(data));
+                            yield put(fetchProfile());
+                            const res = yield call(getProfile);
+        yield put(fetchProfileSuccess(res.data));
+
     } 
     catch (e) {
         yield put(fetchLoginError(e.message));

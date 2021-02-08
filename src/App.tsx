@@ -1,27 +1,22 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.scss';
 import  NavMenu from './components/header/NavMenu'
-import { AppBar, Button, Card, CardActions, CardContent, CardMedia, Container, CssBaseline, Grid, Paper, Typography} from '@material-ui/core';
+import { AppBar} from '@material-ui/core';
 // import  Button from './components/button/Buttons'
 
 import {makeStyles} from '@material-ui/core/styles';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 import Header from './components/header/Header';
-import Home from './Home';
-import Likes from './components/Likes';
 
 import Counter from './components/Counter';
 
-import CommentForm from './components/comment-form/CommentForm';
 import ArticlesPage from './pages/ArticlesPage';
 import ArticlePage from './pages/article/ArticlePage';
-import { Profile } from './shared/types';
-import Appcontext, { reducer } from './shared/app.context';
 import LoginPage from './pages/login/LoginPage';
-import { loadState } from './shared/api';
 // import { loadState } from './shared/api';
-
+import { useDispatch } from 'react-redux';
+import { fetchLogin, fetchProfile } from './shared/redux/login/login.actions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -84,16 +79,24 @@ cardGrid:{
 
 const  App : React.FC= () => {
   // const persistedProfile = loadState();
+  const dispatch = useDispatch();
 
-  // const [state, dispatch] = useReducer(reducer, {
-  //   profile:   persistedProfile 
-    
-  // })
+  useEffect(() => {
+    const token = localStorage.getItem('authToken')
+    if (token) {
+      dispatch(fetchProfile());
+    }
+  }, [])
+
+ 
+  
+  useEffect(()=>{
+  })
 
   
   const classes = useStyles();
   return (
-    // <Appcontext.Provider value={{state,dispatch}}>
+ 
     <><>
       <div className="App">
 
@@ -112,7 +115,7 @@ const  App : React.FC= () => {
         </AppBar>
           
               <Switch>
-              <Route path="/counter" render={(props) => <Counter initialCount={3} />} />
+              <Route path="/counter" render={() => <Counter initialCount={3} />} />
                 {/* <Route  path="/whatIsGdpr" >About</Route> */}
                 <Route exact path="/articles" component={ArticlesPage}  />
           <Route path="/articles/:categoryId" component={ArticlesPage} />
@@ -140,7 +143,7 @@ const  App : React.FC= () => {
    {/* <ArticlesPage/> */}
  
       </>
-      // </Appcontext.Provider>
+      
   );
 }
 

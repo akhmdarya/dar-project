@@ -12,6 +12,8 @@ import AppContext, { ActionTypes } from '../../shared/app.context';
 
 // import Profile from '../profile/Profile';
 import { selectLogin } from '../../shared/redux/login/login.selectors';
+import Profile from '../profile/Profile';
+import { fetchLogin, fetchLoginSuccess, resetProfile } from '../../shared/redux/login/login.actions';
 
 const useStyles = makeStyles((theme) => ({
     app : {
@@ -63,14 +65,18 @@ const Header: React.FC=()=>{
    }
 
    const goToLogOut = () => {
-    // dispatch({type: ActionTypes.RESET_PROFILE, payload: null})
+    dispatch(resetProfile());
     history.push('/articles');
    }
     const classes = useStyles();
     // const {state: {profile}} = useContext(AppContext);
     const dispatch = useDispatch();
     const profile = useSelector(selectLogin);
-    console.log(profile.length+"yyyyyy")
+  // { profile?
+  //   dispatch(fetchLogin)
+  //   :
+  //   <div></div>
+  // }
 
     return(
         <Container fixed className={classes.container}>
@@ -89,17 +95,17 @@ const Header: React.FC=()=>{
               <Box margin={1}>
              
               {
-                 profile.length!=0 ? 
-               profile.map((profil) =>(
+                 profile? 
+              //  profile.map((profil) =>(
                  <>
-                {profil.username} {profil.avatar}
+                {/* {profil.username} {profil.avatar} */}
                
                 <button title={'Log out'} onClick={goToLogOut}>LOG OUT!!!!</button>
              
-               {/* <Profile username={ profile.username}> */}
-                <button title={'Login'}  onClick={goToLogin} >Login!!!!</button></>
-                
-                   )) 
+               <Profile username={ profile.username} avatar={profile.avatar}/>
+               </> 
+              
+                  //  )) 
                  
                  
                  :

@@ -7,3 +7,8 @@ export const selectLogin = createSelector(
   [selectLoginState],
   (state) => state.profile
 );
+// export const selectProfile = createSelector(
+//   [selectAuthState],
+//   (state) => state.profile
+// );
+
