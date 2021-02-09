@@ -22,9 +22,8 @@ export function* fetchLoginAsync(action: FetchLoginAction) {
                                  console.log(res.data.username+"aaaaaaaaa")
                                 // history.replace('/');
                             })
-                            // yield getProfile();
-                            yield put(fetchLoginSuccess(data));
-                            yield put(fetchProfile());
+                          
+                        
                             const res = yield call(getProfile);
         yield put(fetchProfileSuccess(res.data));
 
